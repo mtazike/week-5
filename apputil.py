@@ -55,3 +55,41 @@ def visualize_demographic(df_result):
     )  # format as %
     
     return fig
+
+# Exercise 2
+# Exercise 2
+def family_groups(df):
+    # Step 1: Create family_size column
+    df['family_size'] = df['SibSp'] + df['Parch'] + 1  
+
+    # Step 2: Group by family_size and Pclass
+    grouped = df.groupby(['family_size', 'Pclass']).agg(
+        n_passengers=('PassengerId', 'count'),
+        avg_fare=('Fare', 'mean'),
+        min_fare=('Fare', 'min'),
+        max_fare=('Fare', 'max')
+    ).reset_index()
+
+    return grouped
+
+
+def last_names(df):
+    # Extract last names
+    df['LastName'] = df['Name'].apply(lambda x: x.split(',')[0].strip())
+    # Count them
+    last_name_counts = df['LastName'].value_counts()
+    return last_name_counts
+
+
+def visualize_families(df_result):
+    fig = px.scatter(
+        df_result,
+        x="family_size",
+        y="avg_fare",
+        size="n_passengers",
+        color="Pclass",
+        hover_data=["min_fare", "max_fare"],
+        title="Family Size vs Fare by Class (Bubble = Number of Passengers)"
+    )
+    fig.update_traces(marker=dict(opacity=0.7, line=dict(width=1, color='DarkSlateGrey')))
+    return fig
