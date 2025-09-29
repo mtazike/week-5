@@ -40,7 +40,7 @@ def visualize_demographic(df_result):
         color="Sex",
         barmode="group",
         text="survival_rate",   # adds numbers on bars
-        title="Survival Rate: Children vs Adults in 3rd Class",
+        title="Survival Rate: Children vs Adults in 3rd Class (by Sex)",
         hover_data={
             "n_passengers": True,
             "n_survivors": True,
@@ -56,7 +56,7 @@ def visualize_demographic(df_result):
     
     return fig
 
-# Exercise 2
+
 # Exercise 2
 def family_groups(df):
     # Step 1: Create family_size column
@@ -69,6 +69,9 @@ def family_groups(df):
         min_fare=('Fare', 'min'),
         max_fare=('Fare', 'max')
     ).reset_index()
+
+    # NEW: sort for clarity
+    grouped = grouped.sort_values(by=['Pclass', 'family_size']).reset_index(drop=True)
 
     return grouped
 
