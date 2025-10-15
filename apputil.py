@@ -3,6 +3,9 @@ import plotly.express as px
 
 # Exercise 1
 def survival_demographics(df):
+    if df is None:
+    df = pd.read_csv("https://raw.githubusercontent.com/leontoddjohnson/datasets/main/data/titanic.csv")
+
     # Step 1: create AgeGroup column as categorical
     df['AgeGroup'] = pd.cut(
         df['Age'],
