@@ -28,7 +28,27 @@ def survival_demographics(df):
 
     return result
 
+# Visualization for Exercise 1
+def visualize_demographic(df_result):
+    fig = px.bar(
+        df_result,
+        x="AgeGroup",
+        y="survival_rate",
+        color="Sex",
+        barmode="group",
+        text="survival_rate",
+        title="Survival Rate by Age Group and Sex",
+        hover_data=["n_passengers", "n_survivors", "survival_rate"]
+    )
+    fig.update_traces(
+        texttemplate='%{text:.2f}',
+        textposition='outside'
+    )
+    return fig
 
+
+
+# Exercise 2
 def family_groups(df):
     # Step 1: family_size
     df['family_size'] = df['SibSp'] + df['Parch'] + 1
